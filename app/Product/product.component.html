@@ -1,0 +1,68 @@
+<!--<h2>
+    No. Tasks = {{tasks.length}}
+</h2>
+
+<input type="text" #taskText (keyup)="handleKeyUp($event)">
+<button (click)="addNewTask(taskText.value)"> new Task</button>
+<ol>
+    <div class="leftA" *ngFor="let task of tasks">
+        <input type="checkbox" #chkbox [checked]="task.completed" (click)="task.setCompleted(! task.completed)"> {{task.toString()}}
+        <a href="#" (click)="removeTask(task)">  (X) </a>
+    </div>
+</ol>
+
+<button *ngIf="tasks.length > 1" (click)="completeAll(true)">Complete ALL</button>
+<button *ngIf="tasks.length > 1" (click)="completeAll(false)">Clear ALL</button>
+-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<div class="raw">
+    <div class="col-md-6">
+        <div class="media" *ngFor="let pro of products">
+            <div class="media-left">
+                <img class="media-object" width="200" height="200" src="{{pro.imageUrl}}">
+            </div>
+            <div class="media-body">
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        {{ pro.name }}
+                    </h4>
+                    {{ pro.manufacturer }}
+                    <br><b>Price:</b> {{ pro.price }} $ <br><b>Qunatity:  </b>{{pro.qty}}<br> to Add Item With Qunatity:<input #Quntity type="text" maxlength="2" (focus)="Quntity.value='' " />
+                    <button class="btn btn-primary" (click)="addNewProduct(pro, Quntity.value)"> ADD Item to Cart </button>
+                    <div *ngIf="pro.getQty()==0">
+                        <font size="25" color="#FF0000"><b>Sold Out !!!</b></font>
+                    </div>
+                    <div *ngIf="pro.getQty()<Quntity.value">
+                        <font size="25" color="#FF0000"><b>There is No enough pieces available </b></font>
+                    </div>
+                    <div *ngIf="Quntity.value<0">
+                        <font size="25" color="#FF0000"><b>Qunatity can't be negative value </b></font>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            <div>
+                <table class="table">
+                    <th> Name </th>
+                    <th>Pricce</th>
+                    <th>Quntity</th>
+                    <th>Remove Product</th>
+                    <th>Update your Cart</th>
+                    <tr *ngFor="let pro of products">
+                        <td *ngIf="pro.getAdded()==true"> {{pro.name}}</td>
+                        <td *ngIf="pro.getAdded()==true">{{pro.price}}</td>
+                        <td *ngIf="pro.getAdded()==true">{{pro.addedQty}}</td>
+                        <td *ngIf="pro.getAdded()==true"><button class="btn btn-danger" (click)="removeProduct(pro)">Remove Product</button></td>
+                        <td *ngIf="pro.getAdded()==true"><span class="glyphicon glyphicon-plus" aria-hidden="true" (click)="Incr(pro)"></span> <span class="glyphicon glyphicon-minus" aria-hidden="true" (click)="Decr(pro)"></span></td>
+                    </tr>
+                </table>
+                <div>
+                    Total Amount: <input type="text" #total value="{{CalculateTotal()}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
